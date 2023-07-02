@@ -16,27 +16,38 @@ container: {
 leftContainer: {
     flex: 1,
     alignItems: 'flex-start',
+    paddingLeft: 5
 },
 profileImage: {
-    width: 60,
-    height: 60,
+    width: 55,
+    height: 55,
     borderRadius: 40,
 },
 centerContainer: {
-    flex: 2,
+    flex: 1,
     alignItems: 'center',
+    paddingTop: 5,
+    paddingRight: 10
 },
 greetingText: {
     color: "#ffffff",
     fontSize: 16,
+    fontWeight: "400",
+},
+
+greetingTextName: {
+    color: "#ffffff",
+    fontSize: 18,
     fontWeight: 'bold',
 },
 rightContainer: {
     flex: 1,
     alignItems: 'flex-end',
+    paddingTop: 10,
+    paddingRight: 15
 },
 notificationIcon: {
-    width: 40,
+    width: 30,
     height: 40,
 },
 });

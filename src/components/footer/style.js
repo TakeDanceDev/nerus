@@ -10,8 +10,7 @@ const styles = StyleSheet.create({
         height: 60,
         flexDirection: 'row',
         justifyContent: "space-between",
-        alignItems: "center",
-        marginTop: 30,
+        alignItems: "center"
       },
       homeIcon: {
         width: 36,
