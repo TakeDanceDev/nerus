@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   containerBar: {
     position:"absolute",
-    top:110,
+    top:130,
     maxHeight:50,
     flexDirection: 'row',
     justifyContent: 'space-between',

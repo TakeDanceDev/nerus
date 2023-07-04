@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import styles from './style';
 
-const SearchBar = () => {
+const QuickAcessText = () => {
   return (
-    <View style={styles.containerBar}>
+    <View style={styles.container}>
+      <Text style={styles.infoText}>Acesso Rápido</Text>
     </View>
   );
 };
 
-export default SearchBar;
+export default QuickAcessText;

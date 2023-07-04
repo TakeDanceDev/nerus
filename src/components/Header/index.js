@@ -25,7 +25,9 @@ export default function Header() {
     <View style={styles.container}>
       <TouchableOpacity onPress={() => console.log('Foto pressionada')}>
         <View style={styles.leftContainer}>
-          <Image source={require('../../../assets/goofyfoto.png')} style={styles.profileImage} />
+          <View style={styles.shadowContainer}>
+            <Image source={require('../../../assets/goofyfoto.png')} style={styles.profileImage} />
+          </View>
         </View>
       </TouchableOpacity>
       <View style={styles.centerContainer}>
@@ -34,10 +36,11 @@ export default function Header() {
       </View>
       <TouchableOpacity onPress={() => console.log('Ícone de notificação pressionado')}>
         <View style={styles.rightContainer}>
-          <Image source={require('../../../assets/sino.png')} style={styles.notificationIcon} />
+          <View style={styles.shadowContainer}>
+            <Image source={require('../../../assets/sino.png')} style={styles.notificationIcon} />
+          </View>
         </View>
       </TouchableOpacity>
     </View>
   );
 };
-  

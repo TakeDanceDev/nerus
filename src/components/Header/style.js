@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-container: {
+  container: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -12,44 +12,53 @@ container: {
     top: 0,
     left: 0,
     right: 0,
-},
-leftContainer: {
+  },
+  leftContainer: {
     flex: 1,
     alignItems: 'flex-start',
-    paddingLeft: 5
-},
-profileImage: {
+    paddingLeft: 5,
+  },
+  profileImage: {
     width: 55,
     height: 55,
     borderRadius: 40,
-},
-centerContainer: {
+  },
+  centerContainer: {
     flex: 1,
     alignItems: 'center',
     paddingTop: 5,
-    paddingRight: 10
-},
-greetingText: {
+    paddingRight: 10,
+  },
+  greetingText: {
     color: "#ffffff",
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: "400",
-},
-
-greetingTextName: {
+  },
+  greetingTextName: {
     color: "#ffffff",
     fontSize: 18,
     fontWeight: 'bold',
-},
-rightContainer: {
+  },
+  rightContainer: {
     flex: 1,
     alignItems: 'flex-end',
     paddingTop: 10,
-    paddingRight: 15
-},
-notificationIcon: {
+    paddingRight: 15,
+  },
+  notificationIcon: {
     width: 30,
     height: 40,
-},
+  },
+  shadowContainer: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
+    elevation: 5,
+  },
 });
 
 export default styles;
