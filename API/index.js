@@ -1,78 +1,61 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 
+// Cria a conexão com o banco de dados
+const db = new sqlite3.Database("../DB/dados.db");
+
 const app = express();
 const port = 3000;
 
-// Cria uma instância do banco de dados "dados.db"
-const db = new sqlite3.Database('../DB/dados.db');
-
-// Rota GET para obter os dados da tabela ClienteEndereçoApp
+// Rota para obter dados da tabela ClienteEnderecoApp com base no ID_Cliente
 app.get('/cliente-endereco-app/:id', (req, res) => {
   const ID_Cliente = req.params.id;
 
-  db.all('SELECT * FROM ClienteEndereçoApp WHERE ID_Cliente = ?', [ID_Cliente], (err, rows) => {
+  db.get('SELECT * FROM ClienteEnderecoApp WHERE ID_Cliente = ?', [ID_Cliente], (err, row) => {
     if (err) {
-      res.status(500).send(err.message);
+      console.error(err);
+      res.status(500).send('Erro no servidor');
+    } else if (row) {
+      res.send(row);
     } else {
-      res.json(rows);
+      res.status(404).send('Cliente não encontrado');
     }
   });
 });
 
-// Rota GET para obter os dados da tabela ClientePerfilApp
+// Rota para obter dados da tabela ClientePerfilApp com base no ID_Cliente
 app.get('/cliente-perfil-app/:id', (req, res) => {
   const ID_Cliente = req.params.id;
 
-  db.all('SELECT * FROM ClientePerfilApp WHERE ID_Cliente = ?', [ID_Cliente], (err, rows) => {
+  db.get('SELECT * FROM ClientePerfilApp WHERE ID_Cliente = ?', [ID_Cliente], (err, row) => {
     if (err) {
-      res.status(500).send(err.message);
+      console.error(err);
+      res.status(500).send('Erro no servidor');
+    } else if (row) {
+      res.send(row);
     } else {
-      res.json(rows);
+      res.status(404).send('Cliente não encontrado');
     }
   });
 });
 
-// Rota GET para obter os dados da tabela ClienteEndereço
-app.get('/cliente-endereco/:id', (req, res) => {
+// Rota para obter dados da tabela dados com base no ID_Cliente
+app.get('/dados/:id', (req, res) => {
   const ID_Cliente = req.params.id;
 
-  db.all('SELECT * FROM ClienteEndereço WHERE ID_Cliente = ?', [ID_Cliente], (err, rows) => {
+  db.get('SELECT * FROM dados WHERE ID_Cliente = ?', [ID_Cliente], (err, row) => {
     if (err) {
-      res.status(500).send(err.message);
+      console.error(err);
+      res.status(500).send('Erro no servidor');
+    } else if (row) {
+      res.send(row);
     } else {
-      res.json(rows);
-    }
-  });
-});
-
-// Rota GET para obter os dados da tabela ClientePerfil
-app.get('/cliente-perfil/:id', (req, res) => {
-  const ID_Cliente = req.params.id;
-
-  db.all('SELECT * FROM ClientePerfil WHERE ID_Cliente = ?', [ID_Cliente], (err, rows) => {
-    if (err) {
-      res.status(500).send(err.message);
-    } else {
-      res.json(rows);
-    }
-  });
-});
-
-// Rota GET para obter os dados da tabela ClienteRegistro
-app.get('/cliente-registro/:id', (req, res) => {
-  const ID_Cliente = req.params.id;
-
-  db.all('SELECT * FROM ClienteRegistro WHERE ID_Cliente = ?', [ID_Cliente], (err, rows) => {
-    if (err) {
-      res.status(500).send(err.message);
-    } else {
-      res.json(rows);
+      res.status(404).send('Cliente não encontrado');
     }
   });
 });
 
 // Inicia o servidor
 app.listen(port, () => {
-  console.log(`API rodando em http://localhost:${port}`);
+  console.log(`Servidor rodando em http://localhost:${port}`);
 });

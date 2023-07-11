@@ -3,18 +3,16 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
 
 export default function Header() {
-  const [nome, setNome] = useState('');
-  const [sobrenome, setSobrenome] = useState('');
+  const [nome, setnome] = useState(null);
+  const [sobrenome, setsobrenome] = useState(null);
   const codigoCliente = 1; // Substitua pelo código do cliente desejado
 
   useEffect(() => {
-    fetch(`http://192.168.1.4:3000/cliente-registro/${codigoCliente}`)
+    fetch(`http://192.168.1.4:3000/dados/${codigoCliente}`)
       .then(response => response.json())
       .then(data => {
-        // Extrai o nome e sobrenome do primeiro registro retornado
-        const { Nome, Sobrenome } = data[0];
-        setNome(Nome);
-        setSobrenome(Sobrenome);
+        setnome(data.nome);
+        setsobrenome(data.sobrenome); // Adiciona esta linha para atribuir o sobrenome
       })
       .catch(error => { 
         console.error('Ocorreu um erro:', error);

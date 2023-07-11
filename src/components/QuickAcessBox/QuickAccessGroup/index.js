@@ -2,23 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet } from "react-native";
 import { View, TouchableOpacity, Image, Text } from 'react-native';
 
-
-
 export default function QuickAcessGroup() {
   const [Umidade, setUmidade] = useState('');
   const [Temperatura, setTemperatura] = useState('');
+  const [Luz, setLuz] = useState('');
+  const [Reservatorio, setReservatorio] = useState('');
   const codigoCliente = 1; // Substitua pelo código do cliente desejado
 
   useEffect(() => {
     fetch(`http://192.168.1.4:3000/cliente-perfil-app/${codigoCliente}`)
       .then(response => response.json())
       .then(data => {
-        // Extrai a Umidade e Temperatura do primeiro registro retornado
-        const { Umidade, Temperatura } = data[0];
-        setUmidade(Umidade);
-        setTemperatura(Temperatura);
+        setUmidade(data.Umidade);
+        setTemperatura(data.Temperatura);
+        setLuz(data.Luz);
+        setReservatorio(data.Reservatorio); // Adiciona esta linha para atribuir o sobrenome
       })
-      .catch(error => { 
+      .catch(error => {
         console.error('Ocorreu um erro:', error);
       });
   }, [codigoCliente]);
@@ -27,7 +27,7 @@ export default function QuickAcessGroup() {
     <View style={styles.container}>
       <View style={styles.row}>
         <TouchableOpacity style={styles.squareFirst} activeOpacity={0.8}>
-          <Text style={styles.percentageText}>10%</Text>
+          <Text style={styles.percentageText}>{Reservatorio}%</Text>
           <Image
             source={require('../../../../assets/reservatorio.png')}
             style={styles.imageBottomRight}
@@ -53,7 +53,7 @@ export default function QuickAcessGroup() {
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.squareFourth} activeOpacity={0.8}>
-          <Text style={styles.percentageText}>90%</Text>
+          <Text style={styles.percentageText}>{Luz}%</Text>
           <Image
             source={require('../../../../assets/luz.png')}
             style={styles.imageTopLeft}
