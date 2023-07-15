@@ -3,6 +3,9 @@ import { StyleSheet } from "react-native";
 import { View, TouchableOpacity, Image, Text } from 'react-native';
 
 export default function QuickAcessGroup() {
+
+  
+
   const [Umidade, setUmidade] = useState('');
   const [Temperatura, setTemperatura] = useState('');
   const [Luz, setLuz] = useState('');
@@ -26,40 +29,40 @@ export default function QuickAcessGroup() {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <TouchableOpacity style={styles.squareFirst} activeOpacity={0.8}>
+        <View style={styles.squareFirst} activeOpacity={0.8}>
           <Text style={styles.percentageText}>{Reservatorio}%</Text>
           <Image
             source={require('../../../../assets/reservatorio.png')}
             style={styles.imageBottomRight}
             resizeMode="contain"
           />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.squareSecond} activeOpacity={0.8}>
+        </View>
+        <View style={styles.squareSecond} activeOpacity={0.8}>
           <Text style={styles.percentageText}>{Umidade}%</Text>
           <Image
             source={require('../../../../assets/humidade.png')}
             style={styles.imageBottomLeft}
             resizeMode="contain"
           />
-        </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.row}>
-        <TouchableOpacity style={styles.squareThird} activeOpacity={0.8}>
+        <View style={styles.squareThird} activeOpacity={0.8}>
           <Text style={styles.temperatureText}>{Temperatura}°C</Text>
           <Image
             source={require('../../../../assets/temperatura.png')}
             style={styles.imageTopRight}
             resizeMode="contain"
           />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.squareFourth} activeOpacity={0.8}>
+        </View>
+        <View style={styles.squareFourth} activeOpacity={0.8}>
           <Text style={styles.percentageText}>{Luz}%</Text>
           <Image
             source={require('../../../../assets/luz.png')}
             style={styles.imageTopLeft}
             resizeMode="contain"
           />
-        </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
