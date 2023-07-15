@@ -14,9 +14,10 @@ export default function QuickAcessImage() {
 };
 
 const styles = StyleSheet.create({
+  
   geladeiraImage: {
     width: 145,
-    height: 145,
+    height: 145
   }
 });
 
