@@ -1,8 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, { useRef, useEffect } from 'react'
 import Header from '../../components/Header';
-import Footer from '../../components/footer';
 import SearchBar from '../../components/searchBar';
 import QuickAcessText from '../../components/Title';
 import DeviceBox from '../../components/DeviceBox';
@@ -20,42 +19,44 @@ export default function DevicePage(){
       <Header/>
       <SearchBar/>
       <QuickAcessText texto="Meus Dispositivos" style={styles.Text}/>
-      <View style={styles.fixedContainer}>
-        <ScrollView
+      <ScrollView
           ref={scrollViewRef}
-          contentContainerStyle={styles.scrollViewContent}
+          
           onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+          position="relative"
+          top={250}
+          width="90%"
+          justifyContent='space-between'
+          
         >
           <DeviceBox/>
           <DeviceAdd/>
-          <DeviceAdd/>
+          
+
         </ScrollView>
-      </View>
-      <Footer/>
+       
     </LinearGradient>
   )
 }
 
 const styles = StyleSheet.create({
   Container: {
-    flex: 1,
-    justifyContent: "center",
+    flex:1,
     alignItems: "center",
   },
   Text: {
     paddingLeft: 25
   },
   fixedContainer: {
-    flex: 1,
+    top:0,
     width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 20,
-    paddingBottom: 20,
+
   },
-  scrollViewContent: {
-    flexGrow: 1,
-    justifyContent: 'flex-start',
+  scrollViewContent: { 
+    
     alignItems: 'center',
+
   }
 })

@@ -8,7 +8,7 @@ export default function Header() {
   const codigoCliente = 1; // Substitua pelo código do cliente desejado
 
   useEffect(() => {
-    fetch(`http://192.168.1.4:3000/dados/${codigoCliente}`)
+    fetch(`http://192.168.1.3:3000/dados/${codigoCliente}`)
       .then(response => response.json())
       .then(data => {
         setnome(data.nome);
