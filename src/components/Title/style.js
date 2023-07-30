@@ -2,12 +2,9 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    position:"absolute",
     alignItems:"flex-start",
-    paddingRight:210,
-    top:210,
-    maxHeight:30,
+    right:100,
+    top:-40
   },
   infoText:{
     color: "#ffffff",

@@ -11,10 +11,10 @@ export default function DeviceAdd() {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    containerAdd: {
       backgroundColor: '#31a05e',
       height:230,
-      width:"92%",
+      width:"100%",
       borderRadius: 60,
       marginHorizontal: 10,
       shadowColor: '#000000',

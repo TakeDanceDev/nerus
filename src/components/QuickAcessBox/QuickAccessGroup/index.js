@@ -13,7 +13,7 @@ export default function QuickAcessGroup() {
   const codigoCliente = 1; // Substitua pelo código do cliente desejado
 
   useEffect(() => {
-    fetch(`http://192.168.1.3:3000/cliente-perfil-app/${codigoCliente}`)
+    fetch(`http://192.168.0.17:3000/cliente-perfil-app/${codigoCliente}`)
       .then(response => response.json())
       .then(data => {
         setUmidade(data.Umidade);
@@ -33,7 +33,7 @@ export default function QuickAcessGroup() {
           <Text style={styles.percentageText}>{Reservatorio}%</Text>
           <Image
             source={require('../../../../assets/reservatorio.png')}
-            style={styles.imageBottomRight}
+            style={styles.imageTopLeft}
             resizeMode="contain"
           />
         </View>
@@ -41,7 +41,7 @@ export default function QuickAcessGroup() {
           <Text style={styles.percentageText}>{Umidade}%</Text>
           <Image
             source={require('../../../../assets/humidade.png')}
-            style={styles.imageBottomLeft}
+            style={styles.imageTopRight}
             resizeMode="contain"
           />
         </View>
@@ -51,7 +51,7 @@ export default function QuickAcessGroup() {
           <Text style={styles.temperatureText}>{Temperatura}°C</Text>
           <Image
             source={require('../../../../assets/temperatura.png')}
-            style={styles.imageTopRight}
+            style={styles.imageLeftBottom}
             resizeMode="contain"
           />
         </View>
@@ -59,7 +59,7 @@ export default function QuickAcessGroup() {
           <Text style={styles.percentageText}>{Luz}%</Text>
           <Image
             source={require('../../../../assets/luz.png')}
-            style={styles.imageTopLeft}
+            style={styles.imageRightBottom}
             resizeMode="contain"
           />
         </View>
@@ -125,32 +125,32 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
   },
-  imageBottomRight: {
+  imageTopLeft: {
     width: 20,
     height: 20,
     position: 'absolute',
-    bottom: 5,
-    right: 5,
-  },
-  imageBottomLeft: {
-    width: 20,
-    height: 20,
-    position: 'absolute',
-    bottom: 5,
-    left: 5,
+    bottom: 10,
+    alignItems:"center"
   },
   imageTopRight: {
     width: 20,
     height: 20,
     position: 'absolute',
-    top: 5,
-    right: 5,
+    bottom: 10,
+    alignItems:"center"
   },
-  imageTopLeft: {
+  imageLeftBottom: {
     width: 20,
     height: 20,
     position: 'absolute',
-    top: 5,
-    left: 5,
+    top: 10,
+    alignItems:"center"
+  },
+  imageRightBottom: {
+    width: 20,
+    height: 20,
+    position: 'absolute',
+    top: 10,
+    alignItems:"center"
   },
 });

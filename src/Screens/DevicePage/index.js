@@ -1,62 +1,149 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import React, { useRef, useEffect } from 'react'
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import React from 'react';
+
 import Header from '../../components/Header';
 import SearchBar from '../../components/searchBar';
 import QuickAcessText from '../../components/Title';
-import DeviceBox from '../../components/DeviceBox';
-import DeviceAdd from '../../components/DeviceBox/DeviceAdd';
+import dispositivos from './data';
+import { useNavigation } from '@react-navigation/native';
 
-export default function DevicePage(){
-  const scrollViewRef = useRef(null);
+export default function DevicePage() {
 
-  useEffect(() => {
-    scrollViewRef.current.scrollToEnd({ animated: true });
-  }, []);
+  const navigation = useNavigation();
+
+  const handleAdd = () => {
+    navigation.navigate('DeviceAdd');
+  };
+
+
 
   return (
-    <LinearGradient style={styles.Container} colors={["#1a5432", "#0d2818"]}>
-      <Header/>
-      <SearchBar/>
-      <QuickAcessText texto="Meus Dispositivos" style={styles.Text}/>
-      <ScrollView
-          ref={scrollViewRef}
-          
-          onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
-          position="relative"
-          top={250}
-          width="90%"
-          justifyContent='space-between'
-          
-        >
-          <DeviceBox/>
-          <DeviceAdd/>
-          
-
-        </ScrollView>
-       
+    <LinearGradient style={styles.container} colors={["#1a5432", "#0d2818"]}>
+      <View style={styles.headerContainer}>
+        <Header />
+      </View>
+      <View style={styles.searchBarContainer}>
+        <SearchBar />
+      </View>
+      <View style={styles.textContainer}>
+        <QuickAcessText texto="Meus Dispositivos" style={styles.Text} />
+      </View>
+      <View style={styles.contentContainer}>
+        <FlatList
+          data={dispositivos}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.flatListContent}
+        />
+      </View>
+      <TouchableOpacity style={styles.containerAdd} onPress={handleAdd}>
+          <Image source={require('../../../assets/Plus.png')} resizeMode="contain" style={styles.PlusImage}/>
+      </TouchableOpacity>
     </LinearGradient>
-  )
+  );
 }
 
+const renderItem = ({ item }) => (
+  <TouchableOpacity style={styles.itemContainer}>
+    <Image style={styles.imagem} source={item.imagem} resizeMode="contain" />
+    <Text style={styles.TextoNome}>{item.name}</Text>
+  </TouchableOpacity>
+);
+
 const styles = StyleSheet.create({
-  Container: {
-    flex:1,
+  container: {
+    flex: 1,
     alignItems: "center",
   },
-  Text: {
-    paddingLeft: 25
-  },
-  fixedContainer: {
-    top:0,
+  headerContainer: {
+    zIndex: 2, // Define uma ordem maior para o Header ficar acima dos outros elementos
+    position: 'relative', // Adiciona a posição relativa para manter o fluxo do layout
     width: '100%',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-
   },
-  scrollViewContent: { 
-    
+  searchBarContainer: {
+    zIndex: 2, // Define uma ordem maior para o SearchBar ficar acima dos outros elementos
+    position: 'relative', // Adiciona a posição relativa para manter o fluxo do layout
+    width: '100%',
+    right:30
+  },
+  contentContainer: {
+    flex: 1,
+    paddingTop: 215,
+    width: '100%',
+    borderRadius:60
+  },
+  textContainer: {
+    width: '100%',
     alignItems: 'center',
-
-  }
-})
+    top:240,
+    left:15
+  },
+  Text: {
+    fontSize: 18,
+    color: "#fff",
+    marginTop: 10,
+  },
+  imagem: {
+    width: 145,
+    height: 145,
+    paddingHorizontal: 150,
+  },
+  TextoNome: {
+    paddingTop: 10,
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  itemContainer: {
+    backgroundColor: "#31a05e",
+    borderRadius: 60,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    marginBottom: 20,
+    shadowColor: '#000000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 1,
+  shadowRadius: 1,
+  elevation: 10,
+  },
+  flatListContent: {
+    flexGrow: 1,
+    alignItems: 'center',
+    borderRadius:60,
+  },
+  PlusImage:{
+    justifyContent:"center",
+    alignItems:"center",
+    width: 40,
+    height: 40,
+    padding:10,
+    margin:10
+    
+},
+Texto:{
+    color:"#fafafa",   
+    fontSize:16,
+},
+containerAdd: {
+  backgroundColor: '#31a05e',
+  borderRadius: 60,
+  shadowColor: '#000000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 1,
+  shadowRadius: 1,
+  elevation: 10,
+  alignItems:"center",
+  justifyContent:"center",
+  marginTop:5
+},
+});

@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomePage from "./HomePage";
+import HomePage from "./Homepage";
 import DevicePage from "./DevicePage";
 import ShopPage from "./ShopPage";
 import HelpPage from "./HelpPage";
