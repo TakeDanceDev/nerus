@@ -1,4 +1,4 @@
-const data = [
+const RightInfoText = [
     {
         id:"1",
         name:"Umidade",
@@ -13,4 +13,4 @@ const data = [
     },
 ]
 
-export default data;
+export default RightInfoText

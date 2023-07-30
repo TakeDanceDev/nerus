@@ -1,5 +1,5 @@
 import { StyleSheet, Text, Image, View } from 'react-native'
-import data from './data'
+import RightInfoText from './data'
 import React from 'react'
 
 
@@ -34,31 +34,38 @@ export default function MonitorRight () {
             return "Pode colher seus frutos";
         }}
 
-  return (
-    <View style ={styles.container}>
-        <View style={styles.BoxImages}>
-                <View style = {styles.infoRight}>
-                    <Image source={require('../../../assets/umidade-sombra.png')} resizeMode="contain" style = {styles.imageUmidade}/>
-                    <Image source={require('../../../assets/fertilizante.png')} resizeMode="contain" style = {styles.imageUmidade}/>
+        return (
+            <View style={styles.container}>
+              <View style={styles.BoxImages}>
+                <View style={styles.infoRight}>
+                  {/* Renderizar as imagens */}
+                  {RightInfoText.map((item) => (
+                    <Image
+                      key={item.id}
+                      source={item.imagem}
+                      resizeMode="contain"
+                      style={styles.imageUmidade}
+                    />
+                  ))}
                 </View>
-            <View>
-                <View style = {styles.umidade}>
-                        <Text style = {styles.textoNumUmidade}>86%</Text>
-                        <Text style = {styles.textoLetraUmidade}>Umidade</Text>  
+                <View>
+                  {/* Renderizar os dados de umidade e fertilizante */}
+                  {RightInfoText.map((item) => (
+                    <View style={styles.umidade} key={item.id}>
+                      <Text style={styles.textoNumUmidade}>{item.porcentagem}</Text>
+                      <Text style={styles.textoLetraUmidade}>{item.name}</Text>
+                    </View>
+                  ))}
                 </View>
-                <View style = {styles.umidade}>
-                    <Text style = {styles.textoNumUmidade}>40%</Text>
-                    <Text style = {styles.textoLetraUmidade}>Fertilizante</Text>  
-                </View>
+              </View>
+              <View style={styles.LeafBox}>
+                {/* Substituir por funções que renderizam a imagem e texto */}
+                <Image source={renderImage()} resizeMode="contain" style={styles.LeafImage} />
+                <Text style={styles.LeafText}>{renderText()}</Text>
+              </View>
             </View>
-        </View>
-        <View style={styles.LeafBox}>
-            <Image source={renderImage()} resizeMode="contain" style={styles.LeafImage}/>
-            <Text style={styles.LeafText}>{renderText()}</Text>
-        </View>
-    </View>
-  )
-}
+          );
+        }
 
 const styles = StyleSheet.create({
     container:{
