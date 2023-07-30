@@ -1,5 +1,7 @@
 import { StyleSheet, Text, Image, View } from 'react-native'
+import data from './data'
 import React from 'react'
+
 
 
 export default function MonitorRight () {
@@ -34,7 +36,7 @@ export default function MonitorRight () {
 
   return (
     <View style ={styles.container}>
-        <View style={styles.}>
+        <View style={styles.BoxImages}>
                 <View style = {styles.infoRight}>
                     <Image source={require('../../../assets/umidade-sombra.png')} resizeMode="contain" style = {styles.imageUmidade}/>
                     <Image source={require('../../../assets/fertilizante.png')} resizeMode="contain" style = {styles.imageUmidade}/>
@@ -66,17 +68,19 @@ const styles = StyleSheet.create({
     infoRight:{
         marginBottom: 20,
         flexDirection : "column",
-       
+        
 
     },
     imageUmidade:{
-        top: 8,
+        top: 4,
         height: 50,
         width: 50,
+        marginBottom:50
     },
     umidade:{
      justifyContent: "center",
      alignItems: "center",
+     marginBottom:55,
      
     },
     textoNumUmidade:{
@@ -103,16 +107,21 @@ const styles = StyleSheet.create({
     },
     LeafBox:{
         justifyContent:"center",
-        alignItems:"center"
+        alignItems:"center",
+        
     },
     LeafImage:{
         width:120,
-        height:120
+        height:120,
+        marginTop:-40
     },
     LeafText:{
         color: "#fff",
         fontSize: 16,
 
+    },
+    BoxImages:{
+        flexDirection:"row"
     }
      
  })

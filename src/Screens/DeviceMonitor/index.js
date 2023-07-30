@@ -18,8 +18,11 @@ export default function DeviceMonitor () {
                 26 Semanas
             </Text>
         </View>
-        <View style ={styles.Right}>
-            <MonitorRight />
+        <View style={styles.BoxContainer}>
+            <Image source={require('../../../assets/geladeira-sombra.png')} resizeMode='contain' style={styles.Geladeira}/>
+            <View style ={styles.Right}>
+                <MonitorRight />
+        </View>
         </View>
 
     </LinearGradient>
@@ -29,10 +32,13 @@ const styles = StyleSheet.create ({
 Container:{
     flex: 1,
     alignItems:"center",
+    
   
 },
 BoxText:{
-    top:80
+    top:80,
+    
+    
 },
 FirstText:{
     color: "#fff",
@@ -47,9 +53,21 @@ SecondText:{
     fontWeight:'bold',
 },
 Right:{
-    top:100
+    paddingTop:20
 },
 Geladeira:{
+    width:"50%",
+    height:350,
+    left:0,
+    marginRight:20
+    
+
+},
+BoxContainer:{
+    position:"relative",
+    flexDirection:"row",
+    justifyContent:"center",
+    top:130,
     
 
 }
