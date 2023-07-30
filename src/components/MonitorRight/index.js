@@ -1,88 +1,61 @@
 import { StyleSheet, Text, Image, View } from 'react-native'
 import React from 'react'
-import RightInfoText from './junk'
 
-export default function MonitorRight() {
-  const progresso = 10;
 
-  const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
-      <Image style={styles.imagem} source={item.imagem} resizeMode="contain" />
-      <Text style={styles.TextoNome}>{item.name}</Text>
-    </View>
-  );
+export default function MonitorRight () {
 
-  const getRightInfoById = (id) => {
-    const item = RightInfoText.find((info) => info.id === id);
-    return item ? item : null;
-  };
+    const progresso = 10
 
-  const renderImage = () => {
-    if (progresso >= 0 && progresso <= 14) {
-      return require('../../../assets/progresso-0.png');
-    } else if (progresso >= 15 && progresso <= 34) {
-      return require('../../../assets/progresso-25.png');
-    } else if (progresso >= 35 && progresso <= 59) {
-      return require('../../../assets/progresso-50.png');
-    } else if (progresso >= 60 && progresso <= 94) {
-      return require('../../../assets/progresso-75.png');
-    } else if (progresso >= 95 && progresso <= 100) {
-      return require('../../../assets/progresso-100.png');
-    } else {
-      // Valor inválido, retornar uma imagem padrão ou nula
-      return null;
-    }
-  };
+    const renderImage = () => {
+        if (progresso >= 0 && progresso <= 14) {
+          return require('../../../assets/progresso-0.png');
+        } else if (progresso >= 15 && progresso <= 34) {
+          return require('../../../assets/progresso-25.png');
+        } else if (progresso >= 35 && progresso <= 59) {
+          return require('../../../assets/progresso-50.png');
+        } else if (progresso >= 60 && progresso <= 94) {
+          return require('../../../assets/progresso-75.png');
+        } else if (progresso >= 95 && progresso <= 100) {
+          return require('../../../assets/progresso-100.png');
+        }}
 
-  const renderText = () => {
-    if (progresso >= 0 && progresso <= 14) {
-      return "0% Para a colheita";
-    } else if (progresso >= 15 && progresso <= 34) {
-      return "25% Para a colheita";
-    } else if (progresso >= 35 && progresso <= 59) {
-      return "50% Para a colheita";
-    } else if (progresso >= 60 && progresso <= 94) {
-      return "75% Para a colheita";
-    } else if (progresso >= 95 && progresso <= 100) {
-      return "Pode colher seus frutos";
-    } else {
-      // Valor inválido, retornar uma mensagem padrão
-      return "Progresso inválido";
-    }
-  };
-
-  const rightInfoId = "1"; // O id que você deseja utilizar para obter as informações
-  const rightInfo = getRightInfoById(rightInfoId);
+    const renderText = () => {
+        if (progresso >= 0 && progresso <= 14) {
+            return "0% Para a colheita";
+        } else if (progresso >= 15 && progresso <= 34) {
+            return "25% Para a colheita";
+        } else if (progresso >= 35 && progresso <= 59) {
+            return "50% Para a colheita";
+        } else if (progresso >= 60 && progresso <= 94) {
+            return "75% Para a colheita";
+        } else if (progresso >= 95 && progresso <= 100) {
+            return "Pode colher seus frutos";
+        }}
 
   return (
-    <View style={styles.container}>
-      <View style={styles.infoRight}>
-        <Image source={require('../../../assets/umidade-sombra.png')} resizeMode="contain" style={styles.imageUmidade} />
-        <View style={styles.umidade}>
-          <Text style={styles.textoNumUmidade}>86%</Text>
-          <Text style={styles.textoLetraUmidade}>Umidade</Text>
+    <View style ={styles.container}>
+        <View style={styles.}>
+                <View style = {styles.infoRight}>
+                    <Image source={require('../../../assets/umidade-sombra.png')} resizeMode="contain" style = {styles.imageUmidade}/>
+                    <Image source={require('../../../assets/fertilizante.png')} resizeMode="contain" style = {styles.imageUmidade}/>
+                </View>
+            <View>
+                <View style = {styles.umidade}>
+                        <Text style = {styles.textoNumUmidade}>86%</Text>
+                        <Text style = {styles.textoLetraUmidade}>Umidade</Text>  
+                </View>
+                <View style = {styles.umidade}>
+                    <Text style = {styles.textoNumUmidade}>40%</Text>
+                    <Text style = {styles.textoLetraUmidade}>Fertilizante</Text>  
+                </View>
+            </View>
         </View>
-      </View>
-      <View style={styles.infoRight}>
-        <Image source={require('../../../assets/fertilizante.png')} resizeMode="contain" style={styles.imageUmidade} />
-        <View style={styles.umidade}>
-          <Text style={styles.textoNumUmidade}>86%</Text>
-          <Text style={styles.textoLetraUmidade}>Fertilizante</Text>
+        <View style={styles.LeafBox}>
+            <Image source={renderImage()} resizeMode="contain" style={styles.LeafImage}/>
+            <Text style={styles.LeafText}>{renderText()}</Text>
         </View>
-      </View>
-      <View style={styles.LeafBox}>
-        <Image source={renderImage()} resizeMode="contain" style={styles.LeafImage} />
-        <Text style={styles.LeafText}>{renderText()}</Text>
-      </View>
-      {rightInfo && (
-        <View style={styles.RightInfoContainer}>
-          <Text style={styles.RightInfoName}>{rightInfo.name}</Text>
-          <Text style={styles.RightInfoPorcentagem}>{rightInfo.porcentagem}</Text>
-          <Image source={rightInfo.imagem} resizeMode="contain" style={styles.RightInfoImage} />
-        </View>
-      )}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -92,7 +65,7 @@ const styles = StyleSheet.create({
     },
     infoRight:{
         marginBottom: 20,
-        flexDirection : "row",
+        flexDirection : "column",
        
 
     },
@@ -139,6 +112,7 @@ const styles = StyleSheet.create({
     LeafText:{
         color: "#fff",
         fontSize: 16,
+
     }
      
  })
