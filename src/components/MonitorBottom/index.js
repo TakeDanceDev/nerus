@@ -64,8 +64,8 @@ export default function MonitorBottom() {
 const styles = StyleSheet.create({
   // Estilos do componente MonitorBottom
   box: {
-    top: 500,
-    width: 380,
+    top: 400,
+    right: 300,
   },
   squares: {
     flexDirection: 'row',
