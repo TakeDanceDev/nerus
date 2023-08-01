@@ -5,18 +5,19 @@ import BottomInfoText from './map'; // Importando o array do arquivo 'map.js'
 export default function MonitorBottom() {
   const [showWarning, setShowWarning] = useState(null);
 
-  const handleWarningPress = (itemId) => {
-    if (showWarning === itemId) {
+  const handleWarningPress = (itemTitle) => {
+    if (showWarning === itemTitle) {
       // Se o mesmo item estiver sendo clicado novamente, esconder o aviso
       setShowWarning(null);
     } else {
-      setShowWarning(itemId);
+      setShowWarning(itemTitle);
     }
   };
 
   const getWarningMessage = (title) => {
+    console.log(title);
     switch (title) {
-      case 'Reservatório de água':
+      case 'Reservatório':
         return 'Por favor, encha o reservatório de água';
       case 'Luz':
         return 'Aviso: Baixa luminosidade';
@@ -104,14 +105,15 @@ const styles = StyleSheet.create({
     height: 20,
     width: 40,
   },
-  warningContainer:{
-    alignItems: 'center',
+  warningContainer: {
+    bottom: 20,
+    flexDirection: 'row',
+    alignItems: 'center', // Adicionado para alinhar o ícone no centro verticalmente
     justifyContent: 'center',
   },
   warningIcon: {
     height: 20,
     width: 20,
-    bottom: 30,
   },
   warningText: {
     color: 'white',

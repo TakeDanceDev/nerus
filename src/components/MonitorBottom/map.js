@@ -1,21 +1,21 @@
 const BottomInfoText = [
     {
-        id:"1",
-        porcentagem: '20%',
-        title:"Reservatório de água",
+        id:"0",
+        porcentagem: '90%',
+        title:"Reservatório",
     
         imagem:require('../../../assets/reservatorio.png'),
     },
     {
-        id:"2",
+        id:"1",
         title:"Luz",
-        porcentagem: '30%',
+        porcentagem: '90%',
         imagem:require('../../../assets/luz.png'),
     },
     {
-        id:"3",
+        id:"2",
         title:"Temperatura",
-        graus: '31ºC',
+        graus: '36ºC',
         imagem:require('../../../assets/temperatura.png'),
     },
 ]

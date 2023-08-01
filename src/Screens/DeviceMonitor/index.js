@@ -7,6 +7,7 @@ import MonitorBottom from '../../components/MonitorBottom';
 
 
 
+
 export default function DeviceMonitor () {
   return (
     <LinearGradient style={styles.Container} colors={["#1a5432", "#0d2818"]}>

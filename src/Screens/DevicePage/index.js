@@ -15,6 +15,13 @@ export default function DevicePage() {
   const handleAdd = () => {
     navigation.navigate('DeviceAdd');
   };
+  
+  const renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => navigation.navigate('DeviceMonitor')} style={styles.itemContainer} >
+      <Image style={styles.imagem} source={item.imagem} resizeMode="contain" />
+      <Text style={styles.TextoNome}>{item.name}</Text>
+    </TouchableOpacity>
+  );
 
 
 
@@ -36,6 +43,7 @@ export default function DevicePage() {
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.flatListContent}
+         
         />
       </View>
       <TouchableOpacity style={styles.containerAdd} onPress={handleAdd}>
@@ -45,12 +53,7 @@ export default function DevicePage() {
   );
 }
 
-const renderItem = ({ item }) => (
-  <TouchableOpacity style={styles.itemContainer}>
-    <Image style={styles.imagem} source={item.imagem} resizeMode="contain" />
-    <Text style={styles.TextoNome}>{item.name}</Text>
-  </TouchableOpacity>
-);
+
 
 const styles = StyleSheet.create({
   container: {
