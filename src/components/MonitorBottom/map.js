@@ -1,7 +1,7 @@
 const BottomInfoText = [
     {
         id:"0",
-        porcentagem: '90%',
+        porcentagem: '30%',
         title:"Reservatório",
     
         imagem:require('../../../assets/reservatorio.png'),
@@ -9,7 +9,7 @@ const BottomInfoText = [
     {
         id:"1",
         title:"Luz",
-        porcentagem: '90%',
+        porcentagem: '30%',
         imagem:require('../../../assets/luz.png'),
     },
     {

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './style';
+import { useNavigation } from '@react-navigation/native';
+import MenuPage from '../../Screens/MenuPage';
 
 export default function Header() {
+  const navigation = useNavigation();
+
   const [nome, setnome] = useState(null);
   const [sobrenome, setsobrenome] = useState(null);
   const codigoCliente = 1; // Substitua pelo código do cliente desejado
 
   useEffect(() => {
-    fetch(`http://192.168.0.17:3000/dados/${codigoCliente}`)
+    fetch(`http://192.168.0.103:3000/dados/${codigoCliente}`)
       .then(response => response.json())
       .then(data => {
         setnome(data.nome);
@@ -21,7 +25,7 @@ export default function Header() {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => console.log('Foto pressionada')}>
+      <TouchableOpacity onPress={() => navigation.navigate('MenuPage')}>
         <View style={styles.leftContainer}>
           <View style={styles.shadowContainer}>
             <Image source={require('../../../assets/goofyfoto.png')} style={styles.profileImage} />
