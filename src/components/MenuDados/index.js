@@ -1,12 +1,23 @@
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
+import { LinearGradient } from 'expo-linear-gradient';
+import ReturnMenu from '../ReturnMenu';
 
-const index = () => {
+export default function MenuDados (){
   return (
-    <View>
-      <Text>index</Text>
-    </View>
+    <LinearGradient style={styles.Container} colors={["#1a5432", "#0d2818"]}>
+      <ReturnMenu/>
+      <Text>MenuDados</Text>
+    </LinearGradient>
   )
 }
+const styles = StyleSheet.create ({
+Container:{
+  flex: 1,
+}
 
-export default index
+
+
+
+
+});

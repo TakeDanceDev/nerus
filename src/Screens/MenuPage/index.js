@@ -3,28 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import ReturnHome from '../../components/ReturnHome';
 import opcoes from './data';
-
-const renderItem = ({ item, index }) => {
-  const itemStyle = [styles.itemContainer];
-
-  // Aplica a borda na cor #c9c9c9 apenas ao primeiro item (Meus Dados)
-  if (index === 0) {
-    itemStyle.push(styles.firstItemBorder);
-  }
-
-  return (
-    <TouchableOpacity style={itemStyle} onPress={() => console.log('Botão clicado: ', item.title)}>
-      <Image source={item.imagem} style={styles.itemImage} resizeMode="contain" />
-      <Text style={styles.itemTitle}>{item.title}</Text>
-      <Image source={item.irpara} style={[styles.arrowBackImage, { transform: [{ scaleX: -1 }] }]} resizeMode="contain" />
-    </TouchableOpacity>
-  );
-};
+import { useNavigation } from '@react-navigation/native';
 
 export default function MenuPage() {
   const [nome, setNome] = useState(null);
   const [sobrenome, setSobrenome] = useState(null);
   const codigoCliente = 1; // Substitua pelo código do cliente desejado
+  const navigation = useNavigation();
 
   useEffect(() => {
     fetch(`http://192.168.0.103:3000/dados/${codigoCliente}`)
@@ -37,6 +22,47 @@ export default function MenuPage() {
         console.error('Ocorreu um erro:', error);
       });
   }, [codigoCliente]);
+
+  const renderItem = ({ item, index }) => {
+   
+
+    const itemStyle = [styles.itemContainer];
+
+    // Aplica a borda na cor #c9c9c9 apenas ao primeiro item (Meus Dados)
+    if (index === 0) {
+      itemStyle.push(styles.firstItemBorder);
+    }
+
+    const handleItemPress = () => {
+      switch (item.id) {
+        case 0:
+          navigation.navigate('MenuDados');
+          break;
+        case 1:
+          navigation.navigate('MenuConfig');
+          break;
+        case 2:
+          navigation.navigate('MenuSobre');
+          break;
+        case 3:
+          navigation.navigate('MenuNotifica');
+          break;
+        case 4:
+          navigation.navigate('MenuHelp');
+          break;
+        default:
+          break;
+      }
+    };
+
+    return (
+      <TouchableOpacity style={itemStyle} onPress={handleItemPress}>
+        <Image source={item.imagem} style={styles.itemImage} resizeMode="contain" />
+        <Text style={styles.itemTitle}>{item.title}</Text>
+        <Image source={item.irpara} style={[styles.arrowBackImage, { transform: [{ scaleX: -1 }] }]} resizeMode="contain" />
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <LinearGradient style={styles.Container} colors={["#1a5432", "#0d2818"]}>
@@ -71,6 +97,8 @@ export default function MenuPage() {
     </LinearGradient>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   Container: {
@@ -116,8 +144,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
-    padding: 15,
+    padding: 20,
     borderBottomWidth: 1,
     borderColor: '#c9c9c9',
   },
