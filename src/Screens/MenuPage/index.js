@@ -12,7 +12,7 @@ export default function MenuPage() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    fetch(`http://192.168.0.103:3000/dados/${codigoCliente}`)
+    fetch(`http://192.168.0.104:3000/dados/${codigoCliente}`)
       .then(response => response.json())
       .then(data => {
         setNome(data.nome);
