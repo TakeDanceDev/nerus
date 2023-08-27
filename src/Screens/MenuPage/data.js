@@ -25,7 +25,7 @@ const opcoes = [
     },
     {
         id: 4 ,
-        title:"MEAJUDASOUBURO",
+        title:"Suporte",
         imagem:require('../../../assets/menu5.png'),
         irpara:require('../../../assets/arrow-back.png')
     },

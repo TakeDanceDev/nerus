@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, TouchableWi
 import { LinearGradient } from 'expo-linear-gradient';
 import ReturnMenu from '../ReturnMenu';
 
+
 const options = [
   { id: 1, label: 'Nome', editable: true, data: 'João' },
   { id: 2, label: 'E-mail', editable: true, data: 'joao@example.com' },
@@ -22,7 +23,7 @@ export default function MenuDados({ navigation }) {
       setEditedData(option.data);
       setModalVisible(true);
     } else {
-      navigation.navigate('DadosComplementares');
+      navigation.navigate('MenuDadosComp');
     }
   };
 
@@ -40,7 +41,7 @@ export default function MenuDados({ navigation }) {
 
   return (
     <LinearGradient style={styles.Container} colors={['#1a5432', '#0d2818']}>
-      <ReturnMenu />
+      <ReturnMenu/>
       <View style={styles.upperContainer}>
         <Text style={styles.upperText}>Meus Dados</Text>
       </View>
@@ -91,6 +92,7 @@ export default function MenuDados({ navigation }) {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
+    
   },
   upperContainer: {
     alignItems: 'center',
