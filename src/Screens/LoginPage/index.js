@@ -1,16 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, TextInput, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { auth } from '../../../firebase';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
   const navigation = useNavigation();
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if(user) {
+        navigation.navigate("HomePage")
+      }
+    })
+    return unsubscribe;
+  }, [])
+
   const handleLogin = () => {
-    navigation.navigate('HomePage');
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log(user.email);
+
+        // Navegar para a página inicial após o login bem-sucedido
+        navigation.navigate('HomePage');
+
+        // Impedir que o usuário volte para a página de login pressionando o botão de voltar
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'HomePage' }],
+        });
+      })
+      .catch((error) => alert(error.message));
   };
   
   const handleCreateAccount = () => {
