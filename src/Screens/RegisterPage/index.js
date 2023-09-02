@@ -1,19 +1,39 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, TextInput, TouchableOpacity, Image, StyleSheet, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { auth } from '../../../firebase';
 
 
 export default function RegisterPage() {
-  const [isPasswordVisible, setPasswordVisible] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!isPasswordVisible);
-  };
- 
   const navigation = useNavigation();
+  const [nome, setNome] = useState('');
+  const [sobrenome, setSobrenome] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => { setPasswordVisible(!isPasswordVisible); };
+  const handleCreateAccount = () => { navigation.navigate('LoginPage'); };
 
-  const handleCreateAccount = () => {
-    navigation.navigate('LoginPage');
+  const handleSignUp = () => {
+    // Verifica se o email é válido antes de criar a conta
+    if (!isValidEmail(email)) {
+      alert('O endereço de email não é válido.');
+      return;
+    }
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(userCredentials => {
+        const user = userCredentials.user;
+        console.log(user.email);
+      })
+      .catch(error => alert(error.message));
+  };
+
+  // Função para verificar se o email é válido
+  const isValidEmail = (email) => {
+    // Utilize uma expressão regular para verificar o formato do email
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
   };
   
 
@@ -28,14 +48,33 @@ export default function RegisterPage() {
         <Text style={styles.subtitle}>Crie uma conta para continuar</Text>
 
         <View style={styles.inputContainer}>
-          <TextInput style={styles.input} placeholder="Nome" />
-          <TextInput style={styles.input} placeholder="Sobrenome" />
-          <TextInput style={styles.input} placeholder="Email" />
+          <TextInput style={styles.input} 
+          placeholder="Nome"
+          placeholderTextColor="#AFAFAF"
+          value={nome}
+          onChangeText={setNome}
+           />
+
+          <TextInput style={styles.input} 
+          placeholder="Sobrenome" 
+          placeholderTextColor="#AFAFAF"
+          value={sobrenome}
+          onChangeText={setSobrenome}
+          />
+          <TextInput style={styles.input} 
+          placeholder="Email" 
+          placeholderTextColor="#AFAFAF"
+          value={email}
+          onChangeText={setEmail}
+          />
           <View style={styles.passwordContainer}>
             <TextInput
               style={styles.passwordInput}
               secureTextEntry={!isPasswordVisible}
               placeholder="Senha"
+              placeholderTextColor="#AFAFAF"
+              value={password}
+              onChangeText={setPassword}
             />
             <TouchableOpacity style={styles.passwordVisibilityButton} onPress={togglePasswordVisibility}>
               <Image
@@ -47,7 +86,7 @@ export default function RegisterPage() {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.registerButton}>
+        <TouchableOpacity style={styles.registerButton} onPress={handleSignUp}>
           <Text style={styles.registerButtonText}>Cadastrar</Text>
         </TouchableOpacity>
 

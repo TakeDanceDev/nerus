@@ -25,10 +25,10 @@ export default function App() {
     <LinearGradient style={styles.container} colors={["#1a5432", "#0d2818"]}>
       <NavigationContainer >
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="MenuPage" component={MenuPage} />
           <Stack.Screen name="LoginPage" component={LoginPage} />
-          <Stack.Screen name="RegisterPage" component={RegisterPage} />
           <Stack.Screen name="HomePage" component={Routes}/>
+          <Stack.Screen name="MenuPage" component={MenuPage} />
+          <Stack.Screen name="RegisterPage" component={RegisterPage} />
           <Stack.Screen name="DeviceMonitor" component={DeviceMonitor} />
           <Stack.Screen name="DeviceAdd" component={DeviceAdd} />
           <Stack.Screen name="MenuDados" component={MenuDados} options={{ title: 'Meus Dados' }} />
