@@ -1,3 +1,4 @@
+import { getAuth } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -19,6 +20,9 @@ if (firebase.apps.length === 0) {
     app = firebase.app();
 }
 
-const auth = firebase.auth();
+export const auth = getAuth(app)
 
-export { auth };
+
+
+// IOS: 728572144581-uims638jdc9pip8r2seob050hp4b6f4d.apps.googleusercontent.com
+// Android: 728572144581-65cdnsqqsbflo64aral2se3rds0j2226.apps.googleusercontent.com

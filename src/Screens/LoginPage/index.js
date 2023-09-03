@@ -1,22 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  SafeAreaView,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../../../firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { auth } from '../../../firebase'; // Make sure you import Firebase correctly
+import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from 'expo-web-browser';
 
-const LoginPage = () => {
+// Firebase authentication imports
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithCredential,
+} from 'firebase/auth';
+
+WebBrowser.maybeCompleteAuthSession();
+
+const LoginPage = ({ promptAsync }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
 
+  // Google authentication setup
+  const [userInfo, setUserInfo] = React.useState();
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    iosClientId: '728572144581-uims638jdc9pip8r2seob050hp4b6f4d.apps.googleusercontent.com',
+    androidClientId: '728572144581-65cdnsqqsbflo64aral2se3rds0j2226.apps.googleusercontent.com',
+    expoClientId: '728572144581-lj2aodld7982n0lg19p1ldlgc2gv06v6.apps.googleusercontent.com',
+  });
+
+  React.useEffect(() => {
+    if (response?.type === 'success') {
+      const { id_token } = response.params;
+      const credential = GoogleAuthProvider.credential(id_token);
+      signInWithCredential(auth, credential);
+    }
+  }, [response]);
+
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if(user) {
-        navigation.navigate("HomePage")
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate('HomePage');
       }
-    })
+    });
     return unsubscribe;
-  }, [])
+  }, [navigation]);
 
   const handleLogin = () => {
     auth.signInWithEmailAndPassword(email, password)
@@ -24,10 +60,10 @@ const LoginPage = () => {
         const user = userCredentials.user;
         console.log(user.email);
 
-        // Navegar para a página inicial após o login bem-sucedido
+        // Navigate to the home page after successful login
         navigation.navigate('HomePage');
 
-        // Impedir que o usuário volte para a página de login pressionando o botão de voltar
+        // Prevent the user from going back to the login page by pressing the back button
         navigation.reset({
           index: 0,
           routes: [{ name: 'HomePage' }],
@@ -35,7 +71,18 @@ const LoginPage = () => {
       })
       .catch((error) => alert(error.message));
   };
-  
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await firebase.auth.signInWithCredential(provider);
+      // User successfully logged in with Google
+      const user = result.user;
+      console.log('Authenticated user:', user);
+    } catch (error) {
+      console.error('Error logging in with Google:', error);
+    }
+  };
+
   const handleCreateAccount = () => {
     navigation.navigate('RegisterPage');
   };
@@ -44,7 +91,11 @@ const LoginPage = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.containerContent}>
-          <Image source={require('../../../assets/logo.png')} style={styles.logo} resizeMode="contain" />
+          <Image
+            source={require('../../../assets/logo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
 
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Bem Vindo(a)!</Text>
@@ -74,7 +125,11 @@ const LoginPage = () => {
             >
               <Image
                 resizeMode="contain"
-                source={showPassword ? require('../../../assets/eye-off.png') : require('../../../assets/eye.png')}
+                source={
+                  showPassword
+                    ? require('../../../assets/eye-off.png')
+                    : require('../../../assets/eye.png')
+                }
                 style={styles.passwordVisibilityIcon}
               />
             </TouchableOpacity>
@@ -95,19 +150,34 @@ const LoginPage = () => {
           </View>
 
           <View style={styles.socialMediaContainer}>
-            <TouchableOpacity>
-              <Image source={require('../../../assets/google.png')} style={styles.socialMediaIcon} resizeMode="contain" />
+            <TouchableOpacity onPress={() => promptAsync()}>
+              <Image
+                source={require('../../../assets/google.png')}
+                style={styles.socialMediaIcon}
+                resizeMode="contain"
+              />
             </TouchableOpacity>
             <TouchableOpacity>
-              <Image source={require('../../../assets/facebook.png')} style={styles.socialMediaIcon} resizeMode="contain" />
+              <Image
+                source={require('../../../assets/facebook.png')}
+                style={styles.socialMediaIcon}
+                resizeMode="contain"
+              />
             </TouchableOpacity>
             <TouchableOpacity>
-              <Image source={require('../../../assets/twitter.png')} style={styles.socialMediaIcon} resizeMode="contain" />
+              <Image
+                source={require('../../../assets/twitter.png')}
+                style={styles.socialMediaIcon}
+                resizeMode="contain"
+              />
             </TouchableOpacity>
           </View>
 
           <Text style={styles.createAccountText}>Não tem uma conta?</Text>
-          <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
+          <TouchableOpacity
+            style={styles.createAccountButton}
+            onPress={handleCreateAccount}
+          >
             <Text style={styles.createAccountButtonText}> Criar agora</Text>
           </TouchableOpacity>
         </View>
@@ -234,4 +304,4 @@ const styles = {
   },
 };
 
-export default LoginPage;
+

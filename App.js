@@ -1,50 +1,33 @@
 // APP.js
+import * as React from "react";
+import Navigation from './Navigation';
+import "react-native-gesture-handler"
+import * as Google from "expo-auth-session/providers/google";
+import * as WebBrowser from "expo-web-browser";
+import {GoogleAuthProvider, onAuthStateChanged, signInWithCredential, singInWithCredential} from "firebase/auth";
+import {auth} from "./firebase";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoginPage from "./src/Screens/LoginPage";
 
-import { StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import LoginPage from './src/Screens/LoginPage';
-import RegisterPage from './src/Screens/RegisterPage';
-import DeviceAdd from './src/Screens/DeviceAdd';
-import DeviceMonitor from './src/Screens/DeviceMonitor';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Routes from './src/Screens/routes';
-import MenuPage from './src/Screens/MenuPage';
-import MenuDados from './src/components/MenuDados';
-import MenuConfig from './src/components/MenuConfig';
-import MenuSobre from './src/components/MenuSobre';
-import MenuNotifica from './src/components/MenuNotifica';
-import MenuHelp from './src/components/MenuHelp';
-import MenuDadosComp from './src/components/MenuDadosComp';
-
-
-const Stack = createStackNavigator();
+WebBrowser.maybeCompleteAuthSession()
 
 export default function App() {
+  const [userInfo, setUserInfo] = React.useState()
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    iosClientId:"728572144581-uims638jdc9pip8r2seob050hp4b6f4d.apps.googleusercontent.com",
+    androidClientId:"728572144581-65cdnsqqsbflo64aral2se3rds0j2226.apps.googleusercontent.com",
+    expoClientId: "728572144581-lj2aodld7982n0lg19p1ldlgc2gv06v6.apps.googleusercontent.com",
+  })
+
+  React.useEffect(() => {
+    if( response?.type == "success"){
+      const {id_token} = response.params;
+      const credential = GoogleAuthProvider.credential(id_token)
+      signInWithCredential(auth, credential)
+    }
+  }, [response])
+
   return (
-    <LinearGradient style={styles.container} colors={["#1a5432", "#0d2818"]}>
-      <NavigationContainer >
-        <Stack.Navigator initialRouteName="LoginPage" screenOptions={{headerShown: false}}>
-          <Stack.Screen name="LoginPage" component={LoginPage} />
-          <Stack.Screen name="RegisterPage" component={RegisterPage} />
-          <Stack.Screen name="HomePage" component={Routes}/>
-          <Stack.Screen name="MenuPage" component={MenuPage} />
-          <Stack.Screen name="DeviceMonitor" component={DeviceMonitor} />
-          <Stack.Screen name="DeviceAdd" component={DeviceAdd} />
-          <Stack.Screen name="MenuDados" component={MenuDados} options={{ title: 'Meus Dados' }} />
-          <Stack.Screen name="MenuDadosComp" component={MenuDadosComp} options={{ title: 'Suporte' }} /> 
-          <Stack.Screen name="MenuConfig" component={MenuConfig} options={{ title: 'Configurar o App' }} />
-          <Stack.Screen name="MenuSobre" component={MenuSobre} options={{ title: 'Sobre a Hidroponia' }} />
-          <Stack.Screen name="MenuNotifica" component={MenuNotifica} options={{ title: 'Notificações' }} />
-          <Stack.Screen name="MenuHelp" component={MenuHelp} options={{ title: 'Suporte' }} /> 
-        </Stack.Navigator>
-      </NavigationContainer>
-    </LinearGradient>
+    <LoginPage promptAsync={promptAsync}/>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
